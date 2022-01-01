@@ -1,5 +1,5 @@
 
-# ```TechFlurry``` - TechFlurry
+# TechFlurry Controller
 
 ![build-status](https://img.shields.io/github/workflow/status/atraides/techflurry-controller/Build%20Pipeline/main?logo=GitHub)
 
