@@ -13,14 +13,12 @@ logging.basicConfig(
 
 log = logging.getLogger(__name__)
 
-client = MQTTClient("127.0.0.1", "test/topic")
-client.safe_connect()
+mqtt_topic = "test/topic"
+
+client = MQTTClient()
+client.safe_connect("localhost")
 while True:
     payload = random.uniform(6, 9)
-    client.publish(
-        topic=client.mqtt_topic, payload=payload, qos=0, retain=False
-    )
-    log.info(
-        "New message in '%s' with payload %.2f ", client.mqtt_topic, payload
-    )
+    client.publish(topic=mqtt_topic, payload=payload, qos=0, retain=False)
+    log.info("Publishing to '%s' with payload %.2f ", mqtt_topic, payload)
     time.sleep(5)
