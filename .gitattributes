@@ -1,0 +1,8 @@
+*.py		text eol=lf
+*.md		text=auto
+*.sh    	text eol=lf 
+*.csh   	text eol=lf
+*.html		text eof=lf
+*.pdf   	-text
+*.pem		text eol=lf
+*.p12		-text

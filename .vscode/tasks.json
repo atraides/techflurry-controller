@@ -1,0 +1,68 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Check formatting",
+        "type": "shell",
+        "command": "poetry run black --check --diff .",
+        "group": "test",
+        "presentation": {
+          "reveal": "always",
+          "clear": true
+        }
+      },
+      {
+        "label": "Check imports",
+        "type": "shell",
+        "command": "poetry run isort --check --diff .",
+        "group": "test",
+        "presentation": {
+          "reveal": "always",
+          "clear": true
+        }
+      },
+      {
+        "label": "Check static typing",
+        "type": "shell",
+        "command": "poetry run mypy --check .",
+        "group": "test",
+        "presentation": {
+          "reveal": "always",
+          "clear": true
+        }
+      },
+      {
+        "label": "Check linting",
+        "type": "shell",
+        "command": "poetry run flake8 .",
+        "group": "test",
+        "presentation": {
+          "reveal": "always",
+          "clear": true
+        }
+      },
+      {
+        "label": "Run unit tests",
+        "type": "shell",
+        "command": "poetry run coverage erase && poetry run coverage run --branch -m pytest -vvv && poetry run coverage report -m",
+        "group": "test",
+        "presentation": {
+          "reveal": "always",
+          "clear": true
+        }
+      },
+      {
+        "label": "Tests",
+        "dependsOn": [
+          "Check formatting",
+          "Check imports",
+          "Check static typing",
+          "Check linting",
+          "Run unit tests"
+        ],
+        "problemMatcher": []
+      }
+    ]
+}

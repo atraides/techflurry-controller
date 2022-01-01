@@ -1,0 +1,7 @@
+# The file is provided to support development without poetry,
+# this is not the recommended way so use it with caution.
+
+# Include all normal requirements
+-r requirements.txt
+
+# Your development packages go here:

@@ -1,0 +1,4 @@
+# The file is provided to support development without poetry,
+# this is not the recommended way so use it with caution.
+
+# Your packages go here:
