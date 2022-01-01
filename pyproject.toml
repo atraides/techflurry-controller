@@ -38,6 +38,7 @@ isort = "^5.10.1"
 mypy = "^0.910"
 pytest = "^6.2.5"
 pytest-clarity = "^1.0.1"
+paho-mqtt-stubs = "^0.1.0"
 tox = "^3.24.4"
 
 # It is recommended to use dynamic versioning.
@@ -73,6 +74,8 @@ extend_skip = [".bankruptcy", ".venv"]
 profile = "black"
 line_length = 79
 multi_line_output = 3
+combine_as_imports = true
+float_to_top = true
 
 [tool.mypy]
 exclude = "(tests|.bankruptcy|.venv)"
