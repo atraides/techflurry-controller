@@ -3,7 +3,8 @@
 """ Generic configuration for the DEER test cases."""
 
 # MIT License (see LICENSE)
-# Author: Dániel Hagyárossy <daniel@hagyarossy.hu>, Laszlo Beres <laszloberes@hotmail.hu>
+# Author: Dániel Hagyárossy <daniel@hagyarossy.hu>
+# Author: László Béres <laszloberes@hotmail.hu>
 
 from pathlib import Path
 

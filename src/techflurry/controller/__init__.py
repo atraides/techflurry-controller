@@ -7,4 +7,4 @@ functions for the connected home automation environment.
 
 # MIT License (see LICENSE)
 # Author: Dániel Hagyárossy <d.hagyarossy@sapstar.eu>
-# Author: Laszlo Beres <laszloberes@hotmail.hu>
+# Author: László Béres <laszloberes@hotmail.hu>

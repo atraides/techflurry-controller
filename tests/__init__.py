@@ -2,4 +2,5 @@
 """Test cases for TechFlurry."""
 
 # MIT License (see LICENSE)
-# Author: Dániel Hagyárossy <d.hagyarossy@sapstar.eu>, Laszlo Beres <laszloberes@hotmail.hu>
+# Author: Dániel Hagyárossy <d.hagyarossy@sapstar.eu>
+# Author: László Béres <laszloberes@hotmail.hu>

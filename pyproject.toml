@@ -2,7 +2,7 @@
 name = "techflurry-controller"
 version = "0.0.0"
 description = ""
-authors = ["Dániel Hagyárossy <daniel@hagyarossy.hu>","Laszlo Beres <laszloberes@hotmail.hu>"]
+authors = ["Dániel Hagyárossy <daniel@hagyarossy.hu>","László Béres <laszloberes@hotmail.hu>"]
 readme = "README.md"
 license = "MIT"
 # homepage = "https://"

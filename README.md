@@ -5,9 +5,8 @@
 
 ## Author Information
 
-Daniel Hagyárossy
-<[d.hagyarossy@sapstar.eu](mailto:d.hagyarossy@sapstar.eu)>
-Laszlo Beres <[laszloberes@hotmail.hu](mailto:laszloberes@hotmail.hu)>
+Daniel Hagyárossy <[d.hagyarossy@sapstar.eu](mailto:d.hagyarossy@sapstar.eu)>
+László Béres <[laszloberes@hotmail.hu](mailto:laszloberes@hotmail.hu)>
 
 ## Copyright
 

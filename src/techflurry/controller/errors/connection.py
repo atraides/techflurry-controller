@@ -3,7 +3,8 @@
 """Library of error classes used with the connection management."""
 
 # MIT License (see LICENSE)
-# Author: Dániel Hagyárossy <d.hagyarossy@sapstar.eu>, Laszlo Beres <laszloberes@hotmail.hu>
+# Author: Dániel Hagyárossy <d.hagyarossy@sapstar.eu>
+# Author: László Béres <laszloberes@hotmail.hu>
 
 
 from typing import Any, List
