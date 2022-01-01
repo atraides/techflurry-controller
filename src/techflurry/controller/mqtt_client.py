@@ -22,7 +22,7 @@ class MQTTClient(Client):
 
     """
 
-    def __init__(self, hostname, topic=None, protocol=MQTTv5, **kwargs):
+    def __init__(self, topic=None, protocol=MQTTv5, **kwargs):
         """Initialize the TechFlurry MQTT client.
 
         Args:
@@ -72,13 +72,13 @@ class MQTTClient(Client):
         tflog.debug("Disconnecting from the broker.")
         self.disconnect()
 
-    def safe_connect(self, retry=60, max_retries=5):
+    def safe_connect(self, hostname, retry=60, max_retries=5):
         current_retry = 1
 
         while True:
             try:
-                tflog.info("Connecting to %s.", self.hostname)
-                self.connect(self.hostname)
+                tflog.info("Connecting to %s.", hostname)
+                self.connect(hostname)
                 break
             except OSError as error:
                 if error.errno == 113:  # No route to host
