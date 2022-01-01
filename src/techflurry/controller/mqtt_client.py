@@ -45,6 +45,38 @@ class MQTTClient(Client):
         self.mqtt_topic = topic
         self.on_connect = self.connect_function
         self.on_message = self.message_function
+        self.on_disconnect = self.disconnect_function
+
+    def safe_connect(self, hostname, retry=60, max_retries=5):
+        current_retry = 1
+
+        while True:
+            try:
+                tflog.info("Connecting to %s.", hostname)
+                self.connect(hostname)
+                break
+            except OSError as error:
+                if error.errno == 113:  # No route to host
+                    tflog.warning(
+                        "Can't connect to the MQTT broker (No route to host)."
+                    )
+                    tflog.warning(
+                        "MQTT connection failed. Retrying in %s seconds.",
+                        retry,
+                    )
+
+                    time.sleep(retry)
+                    if max_retries and current_retry >= max_retries:
+                        raise
+                    current_retry = current_retry + 1
+                else:
+                    raise
+
+    def shutdown(self):
+        tflog.debug("Stopping the loop.")
+        self.loop_stop
+        tflog.debug("Disconnecting from the broker.")
+        self.disconnect()
 
     def connect_function(self, client, userdata, flags, rc, *arg):
         while not self.connected_flag:
@@ -76,27 +108,6 @@ class MQTTClient(Client):
                     str(payload),
                 )
 
-    def safe_connect(self, hostname, retry=60, max_retries=5):
-        current_retry = 1
-
-        while True:
-            try:
-                tflog.info("Connecting to %s.", hostname)
-                self.connect(hostname)
-                break
-            except OSError as error:
-                if error.errno == 113:  # No route to host
-                    tflog.warning(
-                        "Can't connect to the MQTT broker (No route to host)."
-                    )
-                    tflog.warning(
-                        "MQTT connection failed. Retrying in %s seconds.",
-                        retry,
-                    )
-
-                    time.sleep(retry)
-                    if max_retries and current_retry >= max_retries:
-                        raise
-                    current_retry = current_retry + 1
-                else:
-                    raise
+    def disconnect_function(self, client, userdata, rc, properties):
+        if rc == 0:
+            tflog.info("Successfully disconnected from the broker")
