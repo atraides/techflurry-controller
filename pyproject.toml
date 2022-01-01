@@ -78,7 +78,7 @@ combine_as_imports = true
 float_to_top = true
 
 [tool.mypy]
-exclude = "(tests|.bankruptcy|.venv)"
+exclude = "(tests|examples|.bankruptcy|.venv)"
 mypy_path = "src"
 disallow_untyped_defs = true
 disallow_any_unimported = true
