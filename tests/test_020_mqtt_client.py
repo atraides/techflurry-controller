@@ -1,7 +1,7 @@
 import logging
 
 import pytest
-from paho.mqtt.client import MQTTMessage
+from paho.mqtt.client import MQTT_CLIENT, MQTTMessage
 from paho.mqtt.reasoncodes import ReasonCodes
 
 from techflurry.controller.errors.connection import TFConnectionFailed
@@ -26,14 +26,20 @@ def mqtt_client_no_topic():
 
 
 class MockMQTTBroker:
-    def __init__(self, on_connect=None):
+    def __init__(self, on_connect=None, on_disconnect=None):
         self._on_connect = on_connect
+        self._on_disconnect = on_disconnect
         self.reason_code = ReasonCodes(2)  # Success
 
     @property
     def on_connect(self):
         if self._on_connect:  # pragma: no cover
             return self._on_connect
+
+    @property
+    def on_disconnect(self):
+        if self._on_disconnect:  # pragma: no cover
+            return self._on_disconnect
 
     def mock_connect(self, hostname):
         if callable(self.on_connect):  # pragma: no cover
@@ -58,6 +64,18 @@ class TestBasicFunctions:
         mqtt_client.safe_connect("invalid.hostname.local")
 
         assert mqtt_client.connected_flag is True
+
+    def test_mqtt_client_disconnection_from_server(
+        self, mqtt_client, mqtt_test_topic, caplog
+    ):
+        caplog.set_level(logging.INFO)
+        message = MQTTMessage(topic=bytes(mqtt_test_topic, "utf-8"))
+        mqtt_client.on_message("", None, message)
+        print(caplog.records)
+        assert len(caplog.records) == 0
+        assert (
+            mqtt_client.disconnect_flag is False
+        )  # FIXME the last row is not tested
 
     def test_mqtt_client_connection_without_topic(
         self, mqtt_client_no_topic, monkeypatch
