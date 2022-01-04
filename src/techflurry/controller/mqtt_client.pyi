@@ -1,11 +1,10 @@
 from typing import Any, Dict, List, Optional, Type, Union
 
-from paho.mqtt.client import Client  # type: ignore[import]
-from paho.mqtt.client import MQTTMessage as MQTTMessage
+from paho.mqtt.client import Client, MQTTMessage as MQTTMessage
 
 MQTT_CLIENT_KWARGS = Optional[Union[str, Union[int, bool]]]
 
-class MQTTClient(Client):  # type: ignore[no-any-unimported]
+class MQTTClient(Client):
     last_pub_time: int
     run_flag: bool
     subscribe_flag: bool
@@ -14,16 +13,14 @@ class MQTTClient(Client):  # type: ignore[no-any-unimported]
     disconnect_flag: bool
     disconnect_time: float
     pub_msg_count: int
-    hostname: str
     mqtt_topic: str
     def __init__(
         self,
-        hostname: str,
-        topic: str,
+        topic: Optional[str] = None,
         protocol: int = ...,
         **kwargs: Dict[str, MQTT_CLIENT_KWARGS]
     ) -> None: ...
-    def on_connect(
+    def connect_function(
         self,
         client: object,  # @TODO: Proper typehint for objects like Type[T]
         userdata: Optional[str],
@@ -31,8 +28,7 @@ class MQTTClient(Client):  # type: ignore[no-any-unimported]
         rc: str,
         *args: List[Any]
     ) -> None: ...
-    def on_message(  # type: ignore[no-any-unimported]
-        self, client: object, userdata: Optional[str], msg: Type[MQTTMessage]
+    def message_function(
+        self, client: object, userdata: Optional[str], msg: MQTTMessage
     ) -> None: ...
-    def shutdown(self) -> None: ...
-    def safe_connect(self, retry: int = ...) -> None: ...
+    def safe_connect(self, hostname: str, retry: int = ...) -> None: ...

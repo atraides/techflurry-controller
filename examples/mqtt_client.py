@@ -9,6 +9,8 @@ logging.basicConfig(
     level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
 )
 
-client = MQTTClient("127.0.0.1", "test/topic")
-client.safe_connect()
+mqtt_topic = "test/topic"
+
+client = MQTTClient(topic=mqtt_topic)
+client.safe_connect("localhost")
 client.loop_forever()
