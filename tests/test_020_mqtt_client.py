@@ -1,7 +1,7 @@
 import logging
 
 import pytest
-from paho.mqtt.client import MQTT_CLIENT, MQTTMessage
+from paho.mqtt.client import MQTTMessage
 from paho.mqtt.reasoncodes import ReasonCodes
 
 from techflurry.controller.errors.connection import TFConnectionFailed
