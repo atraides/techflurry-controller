@@ -29,6 +29,7 @@ class MockMQTTBroker:
     def __init__(self, on_connect=None, on_disconnect=None):
         self._on_connect = on_connect
         self._on_disconnect = on_disconnect
+        self.dc_code = 0
         self.reason_code = ReasonCodes(2)  # Success
 
     @property
@@ -44,6 +45,10 @@ class MockMQTTBroker:
     def mock_connect(self, hostname):
         if callable(self.on_connect):  # pragma: no cover
             self.on_connect("", None, {"flag": "data"}, self.reason_code)
+
+    def mock_disconnect(self, reasoncode=None, properties=None):
+        if callable(self.on_disconnect):  # pragma: no cover
+            self.on_disconnect("", None, self.dc_code, None)
 
 
 def mock_os_error(_):
@@ -65,17 +70,19 @@ class TestBasicFunctions:
 
         assert mqtt_client.connected_flag is True
 
-    def test_mqtt_client_disconnection_from_server(
-        self, mqtt_client, mqtt_test_topic, caplog
-    ):
+    def test_mqtt_client_disconnection_from_server(self, mqtt_client, caplog):
         caplog.set_level(logging.INFO)
-        message = MQTTMessage(topic=bytes(mqtt_test_topic, "utf-8"))
-        mqtt_client.on_message("", None, message)
-        print(caplog.records)
-        assert len(caplog.records) == 0
-        assert (
-            mqtt_client.disconnect_flag is False
-        )  # FIXME the last row is not tested
+        mqtt_client.on_disconnect("", None, 0, None)
+        assert len(caplog.records) == 1
+        assert mqtt_client.disconnect_flag is True
+
+    def test_mqtt_client_shutdown(self, mqtt_client, monkeypatch):
+        mqtt_broker = MockMQTTBroker(on_disconnect=mqtt_client.on_disconnect)
+        monkeypatch.setattr(
+            mqtt_client, "disconnect", mqtt_broker.mock_disconnect
+        )
+        mqtt_client.shutdown()
+        assert mqtt_client.disconnect_flag is True
 
     def test_mqtt_client_connection_without_topic(
         self, mqtt_client_no_topic, monkeypatch
@@ -174,3 +181,7 @@ class TestErrorHandling:
 
         error_value = error.value
         assert error_value.errno == 2
+
+    def test_mqtt_client_disconnect_from_server_fails(self, mqtt_client):
+        mqtt_client.on_disconnect("", None, 10, None)
+        assert mqtt_client.disconnect_flag is False
