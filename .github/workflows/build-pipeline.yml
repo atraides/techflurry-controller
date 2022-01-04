@@ -130,5 +130,5 @@ jobs:
         run: poetry run pip install dist/*.whl
       - name: Test the installed package
         run: |
-          poetry run coverage run --branch --module pytest -vvv
+          poetry run coverage run --branch --source="techflurry.controller" --module pytest -vvv
           poetry run coverage report --show-missing
