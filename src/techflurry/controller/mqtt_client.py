@@ -111,3 +111,5 @@ class MQTTClient(Client):
     def disconnect_function(self, client, userdata, rc, properties):
         if rc == 0:
             tflog.info("Successfully disconnected from the broker")
+            self.connected_flag = False
+            self.disconnect_flag = True
