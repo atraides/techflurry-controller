@@ -1,11 +1,11 @@
 import logging
+from signal import SIGHUP, SIGINT, SIGTERM, signal
 from threading import Event
 
 # from rich import inspect
 from rich.logging import RichHandler
-from signal import SIGHUP, SIGINT, SIGTERM, signal
-from techflurry.controller.datasource import TFDataSource
 
+from techflurry.controller.datasource import TFDataSource
 
 log = logging.getLogger(__name__)
 FORMAT = "%(message)s"
