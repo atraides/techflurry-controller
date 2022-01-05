@@ -74,7 +74,7 @@ class MQTTClient(Client):
 
     def shutdown(self):
         tflog.debug("Stopping the loop.")
-        self.loop_stop
+        self.loop_stop()
         tflog.debug("Disconnecting from the broker.")
         self.disconnect()
 
