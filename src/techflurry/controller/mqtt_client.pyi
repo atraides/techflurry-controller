@@ -20,6 +20,7 @@ class MQTTClient(Client):
         protocol: int = ...,
         **kwargs: Dict[str, MQTT_CLIENT_KWARGS]
     ) -> None: ...
+    def shutdown(self) -> None: ...
     def connect_function(
         self,
         client: object,  # @TODO: Proper typehint for objects like Type[T]
