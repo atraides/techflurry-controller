@@ -1,0 +1,13 @@
+from typing import Union
+
+from techflurry.controller.mqtt_client import MQTTClient
+
+class TFDataSource:
+    hostname: str
+    topic: str
+    client: MQTTClient
+    def __init__(self, topic: str = ..., hostname: str = ...) -> None: ...
+    @property
+    def data_value(self) -> Union[str, Union[int, float]]: ...
+    def start(self) -> None: ...
+    def stop(self) -> None: ...
